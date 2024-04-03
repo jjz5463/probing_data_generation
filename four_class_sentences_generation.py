@@ -91,7 +91,7 @@ prompts = [
 ]
 
 api = '' # enter your gpt token
-attributes = generate_attributes_for_sentences
+attributes = generate_attributes_for_sentences(800)
 
 with DataDreamer("./output"):
     gpt_4 = OpenAI(model_name="gpt-4", api_key=api)
