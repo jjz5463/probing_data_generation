@@ -6,10 +6,11 @@ from datadreamer.steps import (
 )
 from get_attribute import generate_attributes_for_sentences
 from add_labels import add_feature
+from pairwise import pair_examples
 
 prompts = [
     """
-    Generate a sentence in formal language with the following attributes:
+    Please generate an extremely formal sentence with the following attributes:
                                   1. Topic: {topic}
                                   2. Length: {length}
                                   3. Point of view: {point_of_view}
@@ -19,7 +20,7 @@ prompts = [
                                   Return just the sentence, no quotation marks.
     """,
     """
-    Generate a sentence using informal with the following attributes:
+    Generate a sentence using extremely informal language with the following attributes:
                                   1. Topic: {topic}
                                   2. Length: {length}
                                   3. Point of view: {point_of_view}
@@ -29,7 +30,7 @@ prompts = [
                                   Return just the sentence, no quotation marks.
     """,
     """
-    Generate a complex sentence with the following attributes:
+    Please generate a extremely complex sentence with the following attributes:
                               1. Topic: {topic}
                               2. Length: {length}
                               3. Point of view: {point_of_view}
@@ -39,7 +40,7 @@ prompts = [
                               Return just the sentence, no quotation marks.
     """,
     """
-    Generate a simple sentence with the following attributes:
+    Generate a very simple sentence with the following attributes:
                           1. Topic: {topic}
                           2. Length: {length}
                           3. Point of view: {point_of_view}
@@ -91,7 +92,7 @@ prompts = [
 ]
 
 api = '' # enter your gpt token
-attributes = generate_attributes_for_sentences(800)
+attributes = generate_attributes_for_sentences(100)
 
 with DataDreamer("./output"):
     gpt_4 = OpenAI(model_name="gpt-4", api_key=api)
@@ -106,20 +107,29 @@ with DataDreamer("./output"):
                     "llm": gpt_4,
                     "n": 100,
                     "instruction": prompt,
-                    "attributes": attributes[i*100:i*100+100]
+                    "attributes": attributes
                 },
-                outputs={"generations": "generated sentences"},
+                outputs={
+                    "attributes": "attributes",
+                    "generations": "generated sentences"
+                },
             )
-            .select_columns(["generated sentences"])
-            .shuffle()
+            .select_columns(["generated sentences", "attributes"])
         )
         probing_datasets.append(dataset)
 
     probing_dataset = concat(*probing_datasets, name='concat-probing-dataset')
     dataset = probing_dataset.map(add_feature, with_indices=True)
+    paired_dataset = dataset.map(pair_examples,
+                                 batched=True,
+                                 batch_size=200,
+                                 with_indices=True,
+                                 remove_columns=['generated sentences'])
 
     # Publish and share the synthetic dataset
-    dataset.publish_to_hf_hub(
-        "jjz5463/probing_dataset_3.0",
+    paired_dataset.publish_to_hf_hub(
+        "jjz5463/probing_dataset_4.0",
         #add your token to huggingface
     )
+
+    paired_dataset.export_to_csv('data.csv')

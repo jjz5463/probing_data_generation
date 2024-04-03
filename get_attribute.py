@@ -15,7 +15,7 @@ length = ['5-10 words', '10-20 words']
 point_of_view = ['first-person', 'second-person', 'third-person']
 tense = ['past', 'present', 'future']
 voice = ['active voice', 'passive voice']
-type_of_sentence = ['Standard Sentence', 'Semicolon Structure (compound)', 'Question', 'Exclamation']
+type_of_sentence = ['Declarative', 'Semicolon Structure (compound)', 'Question', 'Exclamation']
 
 
 def generate_attributes_for_sentences(n):
