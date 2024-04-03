@@ -1,12 +1,11 @@
 from datadreamer import DataDreamer
 from datadreamer.llms import OpenAI
-from datasets import load_dataset
 from datadreamer.steps import (
-    Prompt,
-    DataSource,
     DataFromAttributedPrompt,
     concat
 )
+from get_attribute import generate_attributes_for_sentences
+from add_labels import add_feature
 
 prompts = [
     """
@@ -92,22 +91,7 @@ prompts = [
 ]
 
 api = '' # enter your gpt token
-
-
-def load_topics_from_hf():
-    dataset = load_dataset("jjz5463/topics_common_crawl_2.0")
-    topics = dataset['train']['Topics']
-    return topics
-
-
-# Load topics, and other attributes
-topics = load_topics_from_hf()
-length = ['5-10 words', '10-20 words']
-point_of_view = ['first-person', 'second-person', 'third-person']
-tense = ['past', 'present', 'future']
-voice = ['active voice', 'passive voice']
-type_of_sentence = ['Standard Sentence', 'Semicolon Structure (compound)', 'Question', 'Exclamation']
-
+attributes = generate_attributes_for_sentences
 
 with DataDreamer("./output"):
     gpt_4 = OpenAI(model_name="gpt-4", api_key=api)
@@ -122,14 +106,7 @@ with DataDreamer("./output"):
                     "llm": gpt_4,
                     "n": 100,
                     "instruction": prompt,
-                    "attributes": {
-                        "topic": topics,
-                        "length": length,
-                        "point_of_view": point_of_view,
-                        "tense": tense,
-                        "voice": voice,
-                        "sentence_type": type_of_sentence,
-                    },
+                    "attributes": attributes[i*100:i*100+100]
                 },
                 outputs={"generations": "generated sentences"},
             )
@@ -139,9 +116,10 @@ with DataDreamer("./output"):
         probing_datasets.append(dataset)
 
     probing_dataset = concat(*probing_datasets, name='concat-probing-dataset')
+    dataset = probing_dataset.map(add_feature, with_indices=True)
 
     # Publish and share the synthetic dataset
-    probing_dataset.publish_to_hf_hub(
+    dataset.publish_to_hf_hub(
         "jjz5463/probing_dataset_2.0",
         #add your token to huggingface
     )
