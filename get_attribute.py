@@ -18,8 +18,6 @@ voice = ['active voice', 'passive voice']
 type_of_sentence = ['Standard Sentence', 'Semicolon Structure (compound)', 'Question', 'Exclamation']
 
 
-
-
 def generate_attributes_for_sentences(n):
   r = random.Random(42)
   all_attribute_combinations = list(itertools.product(length, point_of_view, tense, voice, type_of_sentence))

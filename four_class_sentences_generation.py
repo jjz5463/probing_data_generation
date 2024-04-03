@@ -120,6 +120,6 @@ with DataDreamer("./output"):
 
     # Publish and share the synthetic dataset
     dataset.publish_to_hf_hub(
-        "jjz5463/probing_dataset_2.0",
+        "jjz5463/probing_dataset_3.0",
         #add your token to huggingface
     )
