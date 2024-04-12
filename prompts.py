@@ -12,13 +12,17 @@ prompts = [
     (5) Formal: Maybe you will be able to use these next year.
         Informal: Maybe u can use these for next year.
         
-    Now, generate a formal sentence and an informal sentence with the following attributes:
-                              1. Topic: {topic}
-                              2. Length: {length}
-                              3. Point of view: {point_of_view}
-                              4. Tense: {tense}
-                              5. Voice: {voice}
-                              6. Type of Sentence: {sentence_type}
+    Now, generate a pair of formal and informal sentence similar to real life examples (Note: avoid overuse of dude, Yo, guys, folks) with the following attributes:
+              1. Topic: {topic}
+              2. Length: {length}
+              3. Point of view: {point_of_view}
+              4. Tense: {tense}
+              5. Voice: {voice}
+              6. Type of Sentence: {sentence_type}
+                              
+    Formal: [sentence]
+    Informal: [sentence]
+    
     Return just the sentence, no quotation marks.
     """,
     """
@@ -34,13 +38,17 @@ prompts = [
     (5) Complex: He was considered by many to be a saint.
         Simple: Many think, that he was a saint.
     
-    Now, generate a complex sentence and a simple sentence with the following attributes:
-                          1. Topic: {topic}
-                          2. Length: {length}
-                          3. Point of view: {point_of_view}
-                          4. Tense: {tense}
-                          5. Voice: {voice}
-                          6. Type of Sentence: {sentence_type}
+    Now, generate a pair of complex and simple sentence similar to real life examples with the following attributes:
+              1. Topic: {topic}
+              2. Length: {length}
+              3. Point of view: {point_of_view}
+              4. Tense: {tense}
+              5. Voice: {voice}
+              6. Type of Sentence: {sentence_type}
+                          
+    Complex: [sentence]
+    Simple: [sentence]
+    
     Return just the sentence, no quotation marks.
     """,
     """
@@ -56,13 +64,17 @@ prompts = [
     (5) With contraction: Government bonds are usually denominated in the country's own currency, in which case the government can't be forced to default, although it may choose to do so.
         Without contraction: Government bonds are usually denominated in the country's own currency, in which case the government cannot be forced to default, although it may choose to do so.
     
-    Now, generate a sentence with contraction and a sentence without contraction with the following attributes:
-                          1. Topic: {topic}
-                          2. Length: {length}
-                          3. Point of view: {point_of_view}
-                          4. Tense: {tense}
-                          5. Voice: {voice}
-                          6. Type of Sentence: {sentence_type}
+    Now, generate a pair of with contraction and without contraction sentence similar to real life examples with the following attributes:
+              1. Topic: {topic}
+              2. Length: {length}
+              3. Point of view: {point_of_view}
+              4. Tense: {tense}
+              5. Voice: {voice}
+              6. Type of Sentence: {sentence_type}
+                          
+    With contraction: [sentence]
+    Without contraction: [sentence]
+    
     Return just the sentence, no quotation marks.
     """,
     """
@@ -78,13 +90,17 @@ prompts = [
     (5) With number substitution: THAT WA5 VERY IMPRE55IVE!
         Without number substitution: THAT WAS VERY IMPRESSIVE!
     
-    Now, generate a sentence with number substitution and a sentence without number substitution with the following attributes:
+    Now, generate a pair of with number substitution and without number substitution sentence similar to real life examples (Note: Not every word need to have substitution, also only use substitution where human would likely do) with the following attributes:
                           1. Topic: {topic}
                           2. Length: {length}
                           3. Point of view: {point_of_view}
                           4. Tense: {tense}
                           5. Voice: {voice}
                           6. Type of Sentence: {sentence_type}
-    Not every word need to have substitution, also only use substitution where human would likely do. Return just the sentence, no quotation marks.
+                          
+    With number substitution: [sentence]
+    Without number substitution: [sentence]
+     
+    Return just the sentence, no quotation marks.
     """
 ]
