@@ -11,10 +11,10 @@ def load_topics_from_hf():
 
 
 topics = load_topics_from_hf()
-length = ['5-10 words', '10-20 words']
+length = ['10-15 words', '15-20 words', '20-25 words', '25-30 words']
 point_of_view = ['first-person', 'second-person', 'third-person']
 tense = ['past', 'present', 'future']
-voice = ['active voice', 'passive voice']
+#voice = ['active voice', 'passive voice']
 type_of_sentence = ['Declarative', 'Semicolon Structure (compound)', 'Question', 'Exclamation']
 
 

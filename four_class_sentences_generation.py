@@ -24,8 +24,8 @@ with DataDreamer("./output"):
                 args={
                     "llm": gpt_4,
                     "n": sentence_per_class,
-                    'temperature': 1.4,
-                    'top_p': 0.9,
+                    'temperature': 1,
+                    'top_p': 1,
                     "instruction": prompt,
                     "attributes": attributes
                 },
