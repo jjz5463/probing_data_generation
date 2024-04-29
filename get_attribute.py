@@ -20,7 +20,7 @@ type_of_sentence = ['Declarative', 'Semicolon Structure (compound)', 'Question',
 
 def generate_attributes_for_sentences(n):
   r = random.Random(42)
-  all_attribute_combinations = list(itertools.product(length, point_of_view, tense, voice, type_of_sentence))
+  all_attribute_combinations = list(itertools.product(length, point_of_view, tense, type_of_sentence))
   attributes = []
   for t in topics[:n]:
     sample = random.choice(all_attribute_combinations)
@@ -29,8 +29,8 @@ def generate_attributes_for_sentences(n):
       "length": sample[0],
       "point_of_view": sample[1],
       "tense": sample[2],
-      "voice": sample[3],
-      "sentence_type": sample[4],
+      #"voice": sample[3],
+      "sentence_type": sample[3],
     })
   return attributes
 

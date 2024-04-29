@@ -7,8 +7,9 @@ from datadreamer.steps import (
 from get_attribute import generate_attributes_for_sentences
 from prompts import prompts
 from process import split_examples
+from tokens import gpt_api, hf_token
 
-api = '' # enter your gpt token
+api = gpt_api
 sentence_per_class = 100
 attributes = generate_attributes_for_sentences(sentence_per_class)
 
@@ -44,9 +45,9 @@ with DataDreamer("./output"):
 
     # Publish and share the synthetic dataset
     dataset.publish_to_hf_hub(
-        "jjz5463/probing_dataset_5.0",
-        token=''
+        "jjz5463/probing_dataset_9.0",
+        token= hf_token
         #add your token to huggingface
     )
 
-    dataset.export_to_csv('data.csv')
+    #dataset.export_to_csv('data.csv')
