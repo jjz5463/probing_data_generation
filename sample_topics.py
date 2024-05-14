@@ -14,6 +14,7 @@ from datadreamer.steps import (
     concat
 )
 from transformers import GPT2Tokenizer
+from tokens import gpt_api, hf_token
 
 nltk.download('punkt')
 nltk.download('averaged_perceptron_tagger')
@@ -83,7 +84,7 @@ def process_c4_dataset(limit=800):
     return processed_sentences
 
 
-processed_sentences = process_c4_dataset()
+processed_sentences = process_c4_dataset(10000)
 
 
 def save_texts_to_file(texts, filename):
@@ -91,7 +92,7 @@ def save_texts_to_file(texts, filename):
         json.dump(texts, file, ensure_ascii=False, indent=4)
 
 
-save_texts_to_file(processed_sentences, 'sampled_sentences_c4_800.json')
+#save_texts_to_file(processed_sentences, 'sampled_sentences_large.json')
 
 
 def read_texts_from_file(filename):
@@ -114,9 +115,10 @@ def truncate_to_gpt4_tokens(text, token_limit=8192, model_name='gpt2'):
     return truncated_text
 
 
-texts_list = read_texts_from_file('sampled_sentences_c4_800.json')
+#texts_list = read_texts_from_file('sampled_sentences_large.json')
+texts_list = processed_sentences
 
-api = '' # enter your gpt token
+api = gpt_api # enter your gpt token
 
 
 with (((DataDreamer("./output")))):
@@ -153,6 +155,7 @@ with (((DataDreamer("./output")))):
 
     # Publish and share the synthetic dataset
     probing_dataset.publish_to_hf_hub(
-        "jjz5463/topics_common_crawl_2.0",
+        "jjz5463/topics_common_crawl_large_1.0",
+        token=hf_token
         # enter your huggingface token
     )

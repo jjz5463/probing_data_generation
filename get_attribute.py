@@ -5,7 +5,7 @@ from datasets import load_dataset
 
 
 def load_topics_from_hf():
-    dataset = load_dataset("jjz5463/topics_common_crawl_2.0")
+    dataset = load_dataset("jjz5463/topics_common_crawl_large_1.0")
     topics = dataset['train']['Topics']
     return topics
 

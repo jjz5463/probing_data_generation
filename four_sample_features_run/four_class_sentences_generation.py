@@ -4,16 +4,16 @@ from datadreamer.steps import (
     DataFromAttributedPrompt,
     concat
 )
-from get_attribute import generate_attributes_for_sentences
+from ..get_attribute import generate_attributes_for_sentences
 from prompts import prompts
 from process import split_examples
-from tokens import gpt_api, hf_token
+from ..tokens import gpt_api, hf_token
 
 api = gpt_api
 sentence_per_class = 100
 attributes = generate_attributes_for_sentences(sentence_per_class)
 
-with DataDreamer("./output"):
+with DataDreamer("../output"):
     gpt_4 = OpenAI(model_name="gpt-4", api_key=api)
 
     probing_datasets = []
