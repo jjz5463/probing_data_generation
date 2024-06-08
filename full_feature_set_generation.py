@@ -11,7 +11,7 @@ from tokens import gpt_api, hf_token
 
 api = gpt_api
 sentence_per_class = 100
-num_of_features = 2
+num_of_features = len(prompts)
 attributes = generate_attributes_for_sentences(num_of_features * sentence_per_class)
 
 with DataDreamer("./output"):
@@ -46,6 +46,6 @@ with DataDreamer("./output"):
 
     # Publish and share the synthetic dataset
     dataset.publish_to_hf_hub(
-        "jjz5463/full_set_feature_testrun_0.1",
+        "jjz5463/full_set_features_1.0",
         token= hf_token
     )
