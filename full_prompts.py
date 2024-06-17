@@ -283,7 +283,7 @@ format_statement = [
 
 ending_statement = [
 '''
-Return the sentences without quotation marks.
+Your response should only consist of the two sentences, without quotation marks.
 '''
 ]
 
