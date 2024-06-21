@@ -59,7 +59,7 @@ Generate a pair of sentences where one sentence expresses cognitive processes an
 Generate a pair of sentences where one sentence using articles more frequently than the other,  with the following attributes:
 ''',
 '''
-Generate a pair of sentences where one sentence is fluent and the other is disfluent, with the following attributes:
+Generate a pair of sentences where one sentence is fluent and the other is disfluent (broken grammar, incorrect verb tense usage, misspellings, etc.), with the following attributes:
 ''',
 '''
 Generate a pair of sentences where one sentence using function words more frequently than the other, with the following attributes:
@@ -102,7 +102,7 @@ Generate a pair of sentences with formal and informal tones with the following a
 Generate a pair of sentences with complex and simple structures with the following attributes:
 ''',
 '''
-Generate a pair of sentences with and without contractions with the following attributes:
+Generate a pair of sentences with and without contractions (you are => you’re, would not => wouldn’t, have not => haven’t etc.) with the following attributes:
 ''',
 '''
 Generate a pair of sentences with and without number substitution (internet slang where people replace characters in words with numbers) with the following attributes:
@@ -128,6 +128,18 @@ Ensure that the generated sentences meet the following conditions:
     3. The two sentences have the same length.
 '''
 ]
+
+special_conditions_statement = [""] * 33
+special_conditions_statement.extend([
+'''    4. Contractions should be used throughout the entire sentence (beginning, middle, and end) when needed or it makes sense.
+''',
+'''    4. With number substitution sentence contain only 1 word with number substitution.
+    5. Number substitution involves replacing words or parts of words with numerical digits.
+    6. Only make transformations that naturally and frequently occur in slang use, such as changing "before" to "b4" or "forever" to "4ever".
+    7. Do no use other types of substitution, such as "you" -> "u", "second" -> "2nd", "never" -> "nvr".
+'''
+]
+)
 
 format_instruction = [
 '''
@@ -275,7 +287,7 @@ format_statement = [
     With contractions: [sentence]
     Without contractions: [sentence]
     ''',
-    '''
+    '''    
     With number substitution: [sentence]
     Without number substitution: [sentence]
     '''
@@ -288,6 +300,8 @@ Your response should only consist of the two sentences, without quotation marks.
 ]
 
 prompts = [starting_statement[i] + attributes_statement[0] +
-           coditions_statement[0] + format_instruction[0] +
-           format_statement[i] + ending_statement[0]
+           coditions_statement[0] + special_conditions_statement[i] +
+           format_instruction[0] + format_statement[i] + ending_statement[0]
            for i in range(len(starting_statement))]
+
+print(prompts[34])
