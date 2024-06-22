@@ -106,6 +106,22 @@ Generate a pair of sentences with and without contractions (you are => you’re,
 ''',
 '''
 Generate a pair of sentences with and without number substitution (internet slang where people replace characters in words with numbers) with the following attributes:
+''',
+# additional features
+'''
+Generate a pair of sentences where one uses all lower case and the other uses proper capitalization with the following attributes:
+''',
+'''
+Generate a pair of sentences where one uses all upper case and the other uses proper capitalization with the following attributes:
+''',
+'''
+Generate a pair of sentences where one contains a few misspelled words and the other is a normal sentence with the following attributes:
+''',
+'''
+Generate a pair of sentences where one uses text emojis such as :-), =D, :-) and the other does not use any emojis with the following attributes:
+''',
+'''
+Generate a pair of sentences where one uses emojis such as 😀, 😝, 😍and the other does not use any emojis with the following attributes:
 '''
 ]
 
@@ -140,6 +156,7 @@ special_conditions_statement.extend([
 '''
 ]
 )
+special_conditions_statement.extend([""] * 5)
 
 format_instruction = [
 '''
@@ -290,6 +307,26 @@ format_statement = [
     '''    
     With number substitution: [sentence]
     Without number substitution: [sentence]
+    ''',
+    '''
+    All Lower Case: [sentence]
+    Proper Capitalization: [sentence]
+    ''',
+    '''
+    All Upper Case: [sentence]
+    Proper Capitalization: [sentence]
+    ''',
+    '''
+    Sentence With a Few Misspelled Words: [sentence]
+    Normal Sentence: [sentence]
+    ''',
+    '''
+    Text Emojis: [sentence]    	
+    No Emojis: [sentence]
+    ''',
+    '''
+    With Emojis: [sentence]
+    No Emojis: [sentence]
     '''
 ]
 
@@ -304,4 +341,4 @@ prompts = [starting_statement[i] + attributes_statement[0] +
            format_instruction[0] + format_statement[i] + ending_statement[0]
            for i in range(len(starting_statement))]
 
-print(prompts[34])
+#print(prompts[39])

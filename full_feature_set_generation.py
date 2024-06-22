@@ -46,6 +46,6 @@ with DataDreamer("./output"):
 
     # Publish and share the synthetic dataset
     dataset.publish_to_hf_hub(
-        "jjz5463/full_set_features_3.0",
+        "jjz5463/full_set_features_4.0",
         token= hf_token
     )
